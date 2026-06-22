@@ -59,7 +59,7 @@ const presetColors: ColorVariant[] = [
   { name: "Mocca", hex: "#a16207" },
 ];
 
-const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000").replace(/\/+$/, "");
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL || "https://chufier-generate-ai.hf.space").replace(/\/+$/, "");
 
 const menuItems = [
   "Generate Assets",
@@ -128,7 +128,7 @@ export default function HomePage() {
   const [advantages, setAdvantages] = useState("bahan adem, desain lucu, cocok untuk anak aktif, tersedia banyak warna");
   const [status, setStatus] = useState("Draft");
   const [message, setMessage] = useState("Belum ada aset yang digenerate.");
-  const [backendStatus, setBackendStatus] = useState("Backend belum dipanggil.");
+  const [backendStatus, setBackendStatus] = useState(`Backend belum dipanggil. Target: ${API_BASE_URL}`);
   const [zipDownloadUrl, setZipDownloadUrl] = useState("");
   const [generatedFiles, setGeneratedFiles] = useState<GeneratedFile[]>([]);
   const [previewUrls, setPreviewUrls] = useState<PreviewItem[]>([]);
@@ -342,7 +342,7 @@ export default function HomePage() {
     if (aiStyleReferenceFile) formData.append("ai_style_reference", aiStyleReferenceFile);
 
     setStatus("Generating...");
-    setMessage("Mengirim data ke backend FastAPI...");
+    setMessage(`Mengirim data ke backend FastAPI: ${API_BASE_URL}`);
 
     try {
       const response = await fetch(`${API_BASE_URL}/generate-assets`, {
@@ -372,7 +372,7 @@ export default function HomePage() {
       setPreviewUrls([]);
       setZipDownloadUrl("");
       setBackendStatus(
-        "Backend belum aktif / belum jalan. Output frontend tetap dibuat sebagai simulasi."
+        `Backend gagal dipanggil: ${error instanceof Error ? error.message : String(error)}. Target: ${API_BASE_URL}. Output frontend tetap dibuat sebagai simulasi.`
       );
       setStatus("All Assets Ready");
       setActiveMenu("Output Gallery");
@@ -460,7 +460,7 @@ export default function HomePage() {
     <main className="app-shell">
       <aside className="sidebar">
         <div className="brand">
-          Kids Mockup AI V17
+          Kids Mockup AI V18
           <span>HF Backend + Gemini/Veo</span>
         </div>
         <nav className="nav">
@@ -951,7 +951,7 @@ function GenerateAssetsForm(props: {
       <div className="section">
         <h2>AI Engine</h2>
         <p className="desc">
-          V17 online pakai Gemini untuk gambar dan Veo untuk video. Kalau GEMINI_API_KEY belum ada,
+          V18 online pakai Gemini untuk gambar dan Veo untuk video. Kalau GEMINI_API_KEY belum ada,
           backend otomatis fallback ke render lokal + video slideshow.
         </p>
         <div className="row">
@@ -1574,7 +1574,7 @@ function ExportPanel({
     <>
       <h2>Export Olshop</h2>
       <p className="desc">
-        Backend V17 bisa langsung jalan di Hugging Face Spaces dan panggil Gemini Images/Veo kalau GEMINI_API_KEY tersedia.
+        Backend V18 bisa langsung jalan di Hugging Face Spaces dan panggil Gemini Images/Veo kalau GEMINI_API_KEY tersedia.
       </p>
       <div className="checks">
         <label><input type="checkbox" defaultChecked /> Mockup warna sesuai jumlah varian</label>
