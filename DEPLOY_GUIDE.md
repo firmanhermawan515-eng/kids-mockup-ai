@@ -1,13 +1,13 @@
-# DEPLOY GUIDE — V17 Hugging Face Backend + Vercel Frontend
+# DEPLOY GUIDE — V18 Hugging Face Backend + Vercel Frontend
 
-V17 dibuat karena Render meminta kartu. Jalur ini memakai:
+V18 dibuat karena Render meminta kartu. Jalur ini memakai:
 
 - Backend FastAPI: Hugging Face Spaces, Docker, port 7860
 - Frontend Next.js: Vercel
 
-## A. Upload project V17 ke GitHub
+## A. Upload project V18 ke GitHub
 
-1. Extract ZIP V17.
+1. Extract ZIP V18.
 2. Buka folder hasil extract.
 3. Upload semua isi folder ke repo GitHub `kids-mockup-ai`.
 4. Jangan upload file ZIP-nya, upload isi foldernya.
@@ -19,7 +19,7 @@ V17 dibuat karena Render meminta kartu. Jalur ini memakai:
 3. Isi nama, contoh: `kids-mockup-ai-backend`.
 4. Pilih **SDK: Docker**.
 5. Visibility boleh Public atau Private.
-6. Upload file project atau hubungkan dengan repo GitHub yang berisi V17.
+6. Upload file project atau hubungkan dengan repo GitHub yang berisi V18.
 7. Buka **Settings** → **Variables and secrets**.
 8. Tambahkan secrets:
 
@@ -67,3 +67,7 @@ Untuk testing awal, `*` lebih mudah.
 - Hugging Face Spaces Docker memakai port 7860.
 - Backend akan tidur/rebuild tergantung kondisi Space, tapi tidak butuh kartu seperti Render.
 - Kalau `GEMINI_API_KEY` belum benar, backend tetap jalan dengan fallback lokal, tetapi AI asli Gemini/Veo tidak aktif.
+
+
+## V18 fix
+Frontend punya fallback backend langsung ke https://chufier-generate-ai.hf.space kalau NEXT_PUBLIC_API_BASE_URL belum terbaca di Vercel.

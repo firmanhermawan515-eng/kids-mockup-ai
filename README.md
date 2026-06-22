@@ -7,9 +7,9 @@ sdk: docker
 pinned: false
 ---
 
-# Kids Mockup Generator — V17 Hugging Face Ready
+# Kids Mockup Generator — V18 Hugging Face Ready
 
-V17 ini versi **siap deploy tanpa Render/card**. Backend disiapkan untuk **Hugging Face Spaces Docker**, sedangkan frontend tetap cocok untuk **Vercel**.
+V18 ini versi **siap deploy tanpa Render/card**. Backend disiapkan untuk **Hugging Face Spaces Docker**, sedangkan frontend tetap cocok untuk **Vercel**.
 
 ## Isi utama
 
@@ -65,3 +65,7 @@ npm run dev
 - Kalau `GEMINI_API_KEY` valid, backend mencoba memakai Gemini Images dan Veo.
 - Kalau AI gagal atau key belum ada, backend tetap membuat fallback mockup lokal + video slideshow minimal 10 detik.
 - Download ZIP dan preview sekarang otomatis memakai domain backend aktif, bukan `localhost`.
+
+
+## V18 fix
+Frontend punya fallback backend langsung ke https://chufier-generate-ai.hf.space kalau NEXT_PUBLIC_API_BASE_URL belum terbaca di Vercel.
