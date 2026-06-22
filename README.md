@@ -1,64 +1,67 @@
-# Kids Mockup Generator — V16 Online Deploy Ready
+---
+title: Kids Mockup AI Backend
+emoji: 🧸
+colorFrom: purple
+colorTo: pink
+sdk: docker
+pinned: false
+---
 
-V16 ini versi **siap deploy online** supaya user cukup buka link, tanpa install apa pun di device mereka.
+# Kids Mockup Generator — V17 Hugging Face Ready
 
-## Fitur
+V17 ini versi **siap deploy tanpa Render/card**. Backend disiapkan untuk **Hugging Face Spaces Docker**, sedangkan frontend tetap cocok untuk **Vercel**.
 
-- Upload desain produk
-- Upload logo
-- Upload referensi model, pose, thumbnail, style
-- Pilih produk dan varian warna
-- Generate mockup gambar
-- Generate thumbnail
-- Generate listing text
-- Generate video MP4 minimal 10 detik
-- Download ZIP export
+## Isi utama
 
-## AI Engine
+- `backend/` — FastAPI backend untuk generate mockup, thumbnail, listing, ZIP, dan video fallback.
+- `Dockerfile` — konfigurasi Hugging Face Spaces Docker port 7860.
+- `app/` — frontend Next.js.
+- `HUGGINGFACE_DEPLOY_GUIDE.md` — panduan deploy step-by-step.
+- `.env.example` — env frontend Vercel.
+- `backend/.env.example` — env backend Hugging Face/local.
 
-- Gambar: Gemini image generation
-- Video: Veo video generation
-- Fallback: render lokal + slideshow video jika API key belum aktif
+## Backend Hugging Face
 
-## Yang perlu disiapkan
-
-Backend butuh:
-
-```env
-GEMINI_API_KEY=isi_api_key_gemini_kamu
-ALLOWED_ORIGINS=https://domain-frontend-kamu.vercel.app
-```
-
-Frontend butuh:
-
-```env
-NEXT_PUBLIC_API_BASE_URL=https://domain-backend-kamu.onrender.com
-```
-
-## Deploy
-
-Ikuti file:
+Secret yang perlu diisi di Hugging Face Spaces:
 
 ```txt
-DEPLOY_GUIDE.md
+GEMINI_API_KEY=your_gemini_api_key_here
+ALLOWED_ORIGINS=*
 ```
 
-## Output
+Test backend setelah build:
 
 ```txt
-backend/generated/<job_id>/
-├── ai_prompt.json
-├── manifest.json
-├── listing.txt
-├── generated_files.json
-├── uploads/
-├── renders/
-│   ├── *_mockup-*.png
-│   ├── *_thumbnail-utama.jpg
-│   └── *_promo.mp4
-└── <job_id>_export.zip
+https://nama-space.hf.space/health
 ```
 
-## Catatan
+## Frontend Vercel
 
-Saya tidak bisa membuat URL publik langsung dari dalam chat tanpa akses akun hosting kamu. Tapi project ini sudah disiapkan agar bisa langsung dipublish ke Vercel + Render/Railway.
+Environment variable di Vercel:
+
+```txt
+NEXT_PUBLIC_API_BASE_URL=https://nama-space.hf.space
+```
+
+## Local development
+
+Backend:
+
+```bash
+cd backend
+pip install -r requirements.txt
+python -m uvicorn main:app --reload --port 8000
+```
+
+Frontend:
+
+```bash
+npm install
+npm run dev
+```
+
+## Catatan penting
+
+- Kalau `GEMINI_API_KEY` valid, backend mencoba memakai Gemini Images dan Veo.
+- Kalau AI gagal atau key belum ada, backend tetap membuat fallback mockup lokal + video slideshow minimal 10 detik.
+- Download ZIP dan preview sekarang otomatis memakai domain backend aktif, bukan `localhost`.
